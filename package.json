@@ -1,0 +1,49 @@
+{
+  "name": "Fingerprint API",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -r dotenv/config index.js dotenv_config_path=.env.development.local dotenv_config_debug=true",
+    "dev": "nodemon -r dotenv/config index.js dotenv_config_path=.env.development.local dotenv_config_debug=true",
+    "start:prod": "node  -r dotenv/config index.js dotenv_config_path=.env.production.local",
+    "startDev": "nodemon -r dotenv/config index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1080.0",
+    "axios": "^0.26.1",
+    "babel-cli": "^6.26.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "cron-job-manager": "^2.3.1",
+    "dayjs": "^1.10.7",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.2.1",
+    "joi": "^17.6.0",
+    "joi-objectid": "^4.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "mime": "^3.0.0",
+    "mongoose": "^6.2.2",
+    "mongoose-aggregate-paginate-v2": "^1.0.6",
+    "mongoose-paginate-v2": "^1.6.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "react-stripe": "^0.1.0",
+    "stripe": "^11.9.1",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.9.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4"
+  }
+}

@@ -1,0 +1,10 @@
+exports.NFT_VIDEO_SEARCH_TYPE = {
+  ALL: "ALL",
+  FEATURED: "FEATURED",
+};
+
+exports.PAYMENT_STATUS = {
+  PENDING: "PENDING",
+  SUCCESS: "SUCCESS",
+  FAILED: "FAILED",
+};
