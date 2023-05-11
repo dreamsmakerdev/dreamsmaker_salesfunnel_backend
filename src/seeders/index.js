@@ -1,1 +1,3 @@
-require('./adminSeeds')();
+require("./adminSeeds")();
+require("./layoutSeeder")();
+

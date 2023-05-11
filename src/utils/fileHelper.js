@@ -2,6 +2,7 @@
 const mime = require("mime");
 const AWS = require("aws-sdk");
 const { v4: uuidv4 } = require("uuid");
+const fs = require("fs");
 
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -10,6 +11,7 @@ const s3 = new AWS.S3({
 });
 
 const FilePathProfile = (fileName, folderName) => `NFT/${folderName}/${fileName}`;
+const FilePathLayout = (fileName) => `LAYOUT/${fileName}`;
 
 const uploadS3 = (buff, uploadFilePath, contentType) => {
     const params = {
@@ -80,6 +82,54 @@ exports.uploadProfile = async (base64, folderName) => {
             FilePathProfile(decodedImg.fileName, folderName),
             decodedImg.fileContentType
         );
+    } catch (error) {
+        return error;
+    }
+};
+
+/**
+ *
+ * @param {String} base64
+ * @returns {Promise}
+ *
+ * Takes file base64 and then uploads it to server under LAYOUT/ directory
+ */
+exports.uploadLayout = async (base64) => {
+    try {
+        const decodedImg = decodeBase64Image(base64);
+        if (!decodedImg.success) {
+            return decodedImg;
+        }
+
+        return uploadS3(
+            decodedImg.data,
+            FilePathLayout(decodedImg.fileName),
+            decodedImg.fileContentType
+        );
+    } catch (error) {
+        return error;
+    }
+};
+
+/**
+ *
+ * @param {String} path
+ * @returns {Promise}
+ *
+ * Takes file base64 and then uploads it to server under LAYOUT/ directory
+ */
+exports.uploadLayoutFromFilePath = async (path) => {
+    try {
+        if (!fs.existsSync(path)) {
+            throw new Error("file not exists");
+        }
+
+        const fileData = fs.readFileSync(path);
+        const contentType = mime.getType(path);
+        const extension = mime.getExtension(contentType);
+        const fileName = `${uuidv4()}.${extension}`;
+
+        return uploadS3(fileData, FilePathLayout(fileName), contentType);
     } catch (error) {
         return error;
     }
