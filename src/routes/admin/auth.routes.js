@@ -3,11 +3,11 @@
  * @description :: routes of authentication APIs
  */
 
-const express = require('express');
+const express = require("express");
 
 const routes = express.Router();
-const authController = require('../../controller/admin/authController');
-const adminAuth = require('../../middleware/adminAuth');
+const authController = require("../../controller/admin/authController");
+const adminAuth = require("../../middleware/adminAuth");
 
 /**
  * @swagger
@@ -37,7 +37,33 @@ const adminAuth = require('../../middleware/adminAuth');
  *    500:
  *     description : error
  */
-routes.post('/login', authController.loginAdmin);
+routes.post("/login", authController.loginAdmin);
+
+/**
+ * @swagger
+ * /admin/auth/changePassword:
+ *  post:
+ *   summary: This API is for admin to change the password for the account
+ *   description: This API is for admin to change the password for the account
+ *   tags:
+ *    - Admin Auth
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *       type: object
+ *       properties:
+ *        password:
+ *         type: string
+ *         description: password for the admin
+ *         example: admin123
+ *   responses:
+ *    200:
+ *     description: success
+ *    500:
+ *     description : error
+ */
+routes.post("/changePassword", adminAuth, authController.resetAdminPassword);
 
 /**
  * @swagger
@@ -53,6 +79,7 @@ routes.post('/login', authController.loginAdmin);
  *    500:
  *     description : error
  */
-routes.post('/logout', adminAuth, authController.logoutAdmin);
+routes.post("/logout", adminAuth, authController.logoutAdmin);
 
 module.exports = routes;
+
